@@ -18,20 +18,24 @@
 #include <unistd.h>
 
 // Define which Raspberry Pi board are you using. Take care to have defined only one at time.
-#define RPI
-//#define RPI2
+#define RPI3
 
-#ifdef RPI
+#if (defined(RPI) && (defined(RPI2) || defined(RPI3))) || (defined(RPI2) && defined(RPI3))
+#error "Multiple versions of RPI defined!"
+
+#elif defined(RPI)
 #define BCM2708_PERI_BASE       0x20000000
 #define GPIO_BASE               (BCM2708_PERI_BASE + 0x200000)	// GPIO controller 
 #define BSC0_BASE 		(BCM2708_PERI_BASE + 0x205000)	// I2C controller	
-#endif
 
-#ifdef RPI2
+#elif defined(RPI2) || defined(RPI3)
 #define BCM2708_PERI_BASE       0x3F000000
 #define GPIO_BASE               (BCM2708_PERI_BASE + 0x200000)	// GPIO controller. Maybe wrong. Need to be tested.
 #define BSC0_BASE 		(BCM2708_PERI_BASE + 0x804000)	// I2C controller	
-#endif	
+
+#else
+#error "Define RPI version (RPI, RPI2 or RPI3)"
+#endif 
 
 #define PAGE_SIZE 		(4*1024)
 #define BLOCK_SIZE 		(4*1024)
