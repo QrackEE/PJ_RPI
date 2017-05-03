@@ -1,0 +1,10 @@
+# declare text files to have normalized to native line endings
+*.c text
+*.h text
+
+# declare files that will always have CRLF line endings
+*.md text eol=lf
+
+# binary files- do not touch
+*.png binary
+*.jpg binary
